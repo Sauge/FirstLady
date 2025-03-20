@@ -10,11 +10,15 @@
   "screenshot_quality": 100,
   "match_threshold": 0.8,
   "autoRallySquads": 3,
-  "auto_inbox": "If you have any questions, please write King Julien directly, this chat is ignored. If you send a present, thank you! :)",
+  "auto_inbox": "This chat is ignored, contact SantaSauge in case of any issues",
   "ui_elements": {
     "profile": {
       "x": "4%",
       "y": "6%"
+    },
+    "capitol_menu": {
+      "x": "65%",
+      "y": "50%"
     },
     "secretary_menu": {
       "x": "70%",
@@ -509,7 +513,7 @@
     }
   },
   "discord": {
-    "bot_name": "Last War Bot",
+    "bot_name": "ExecLogic",
     "dig_notification": {
       "content": "<:digEmote:1305924160949846106> **NEW DIG**",
       "embed_title": ":zap: Action Required",

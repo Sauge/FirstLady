@@ -37,13 +37,8 @@ class SecretaryRoutine(TimeCheckRoutine):
         """Internal execution logic"""
         self.automation.game_state["is_home"] = False
         self.open_profile_menu(self.device_id)
-        if not find_and_tap_template(
-            self.device_id,
-            "capitol_menu",
-            error_msg="Failed to find capitol menu",
-            critical=True
-        ):  
-            return False
+        self.open_capitol_menu(self.device_id)
+
         handle_swipes(self.device_id, direction="down", num_swipes=1)
         res = self.process_all_secretary_positions()
         navigate_home(self.device_id, True)
@@ -111,6 +106,25 @@ class SecretaryRoutine(TimeCheckRoutine):
         except Exception as e:
             app_logger.error(f"Error opening profile menu: {e}")
             return False
+
+    def open_capitol_menu(self, device_id: str) -> bool:
+        """Open the profile menu"""
+        try:
+            width, height = get_screen_size(device_id)
+            profile = CONFIG['ui_elements']['capitol_menu']
+            profile_x = int(width * float(profile['x'].strip('%')) / 100)
+            profile_y = int(height * float(profile['y'].strip('%')) / 100)
+            humanized_tap(device_id, profile_x, profile_y)
+
+            # Look for notification indicators
+
+            time.sleep(2)
+
+            return True
+        except Exception as e:
+            app_logger.error(f"Error opening profile menu: {e}")
+            return False
+
 
     def exit_to_secretary_menu(self) -> bool:
         """Exit back to secretary menu"""
@@ -186,89 +200,17 @@ class SecretaryRoutine(TimeCheckRoutine):
                         break
                     
                     topmost_accept = accept_locations[0]
-                    alliance_region, name_region, screenshot = get_text_regions(
-                        topmost_accept, 
-                        self.device_id,
-                        existing_screenshot=current_screenshot
-                    )
                     
-                    if screenshot is None:
-                        continue
-
-                    x1, y1, x2, y2 = alliance_region
-                    
-                    # Save cropped region
-                    region_img = screenshot[y1:y2, x1:x2]
-                    
-                    isBannedAlly = is_banned_ally(region_img)
-                    isWhitelistedAlly = is_whitelisted_ally(region_img)
-
-                    is_rejected = bool(isBannedAlly)
-
-                    if isWhitelistedAlly:
-                        app_logger.info(f"Whitelisted application received for {isWhitelistedAlly} for {name} position")
-
-                    if isBannedAlly:
-                        app_logger.info(f"Banned application received for {isBannedAlly} for {name} position")
-
                     now = datetime.now()
                     
-                    #if not isWhitelistedAlly:
-                    #    if ((now.weekday() == 1 and now.hour >= 3) or (now.weekday() == 2 and now.hour < 3)) and (name == 'development' or name == 'administrative'):
-                    #        is_rejected = True
-                    #    elif ((now.weekday() == 2 and now.hour >= 3) or (now.weekday() == 3 and now.hour < 3)) and (name == 'science' or name == 'administrative'):
-                    #        is_rejected = True
-                    #else: 
-                    #    app_logger.info(f"Application for {isWhitelistedAlly} is whitelisted for {name} position")
+                  
+                    humanized_tap(self.device_id, topmost_accept[0], topmost_accept[1])
+                    app_logger.debug(f"Tapping accept at coordinates: ({topmost_accept[0]}, {topmost_accept[1]})")
+                    accepted += 1
 
-                    #if is_rejected: 
-                    #    play_beep()
-                    #    result = input('Reject this candidate? [y/n]')
-                    #    if result.lower() == 'n':
-                    #        app_logger.info(f"Skipped rejection candidate for office {name}")
-                    #        is_rejected = False
-
-                    if not is_rejected:
-                        humanized_tap(self.device_id, topmost_accept[0], topmost_accept[1])
-                        app_logger.debug(f"Tapping accept at coordinates: ({topmost_accept[0]}, {topmost_accept[1]})")
-                        accepted += 1
-                    else:
-                        # Handle rejection
-                        if isBannedAlly:
-                            app_logger.info(f"Rejecting candidate with alliance: {isBannedAlly} for {name}")
-                        else:
-                            app_logger.info(f"Rejecting candidate for {name}, not whitelisted")
-                
-                    
-                        # Try reject button first
-                        reject_buttons = self.find_reject_buttons()
-                        if reject_buttons:
-                            # Get topmost reject button
-                            reject_button = reject_buttons[0]
-                            # Verify it's aligned with our accept button vertically
-                            if abs(reject_button[1] - topmost_accept[1]) <= 10:  # 10 pixel tolerance
-                                humanized_tap(self.device_id, reject_button[0], reject_button[1])
-                                app_logger.debug(f"Tapping reject at coordinates: ({reject_button[0]}, {reject_button[1]})")
-                                if not find_and_tap_template(
-                                    self.device_id,
-                                    "reject_confirm",
-                                    error_msg="Failed to find confirm button",
-                                    critical=True
-                                ):
-                                    continue
-                        else:
-                            # No reject buttons found, try confirm
-                            if not find_and_tap_template(
-                                self.device_id,
-                                "confirm",
-                                error_msg="Failed to find confirm button",
-                                critical=True
-                            ):
-                                continue
-                    
                     processed += 1
                     human_delay(CONFIG['timings']['settle_time'])
-                                
+
             # Exit menus with verification
             if not self.exit_to_secretary_menu():
                 app_logger.error("Failed to exit to secretary menu")

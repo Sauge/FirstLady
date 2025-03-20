@@ -61,5 +61,5 @@ class CheckForDigsRoutine(TimeCheckRoutine):
         return await self.discord.send_notification(
             dig_config['content'],
             embed,
-            username=CONFIG['discord'].get('bot_name', 'Last War Bot')
+            username=CONFIG['discord'].get('bot_name', 'ExecLogic')
         )

@@ -136,7 +136,7 @@ def get_current_running_app(device_id):
     """
     try:
         result = subprocess.run(
-            ['adb', '-s', device_id, 'shell', 'dumpsys', 'window', 'displays'],
+            ['adb', '-s', device_id, 'shell', 'dumpsys', 'window', 'windows'],
             capture_output=True,
             text=True,
             check=True

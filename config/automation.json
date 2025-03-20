@@ -10,11 +10,11 @@
     },
     "help": {
       "handler": "src.automation.routines.help.HelpRoutine",
-      "interval": 5
+      "interval": null
     },
     "dig": {
       "handler": "src.automation.routines.checkForDigs.CheckForDigsRoutine",
-      "interval": 5
+      "interval": null
     },
     "egg": {
       "handler": "src.automation.routines.checkForEggs.CheckForEggsRoutine",
@@ -22,19 +22,19 @@
     },
     "collectTruck": {
       "handler": "src.automation.routines.collectTruck.CollectTruckRoutine",
-      "interval": 1000
+      "interval": null
     },
     "secretary": {
       "handler": "src.automation.routines.secretary.SecretaryRoutine",
-      "interval": 120
+      "interval": 30
     },
     "mapExchange": {
       "handler": "src.automation.routines.mapExchange.MapExchangeRoutine",
-      "interval": 300
+      "interval": null
     },
     "gifts": {
       "handler": "src.automation.routines.allianceGifts.AllianceGiftsRoutine",
-      "interval": 5000
+      "interval": null
     },
     "collect_resources": {
       "handler": "src.automation.routines.collectResources.CollectResourcesRoutine",
@@ -42,7 +42,7 @@
     },
     "survivors": {
       "handler": "src.automation.routines.checkSurvivors.CheckNewSurvivorsRoutine",
-      "interval": 300
+      "interval": null
     },
     "trainOnboarding": {
       "handler": "src.automation.routines.checkTrainJoin.CheckTrainJoinRoutine",
@@ -54,7 +54,7 @@
     },
     "autoInbox": {
       "handler": "src.automation.routines.autoInbox.AutoInboxRoutine",
-      "interval": null
+      "interval": 60
     },
     "autoJoinRallys": {
       "handler": "src.automation.routines.autoJoinRallys.AutoJoinRallysRoutine",
@@ -66,7 +66,7 @@
     },
     "secretTask": {
       "handler": "src.automation.routines.secretTask.SecretTaskRoutine",
-      "interval": 120
+      "interval": null
     },
     "vsWeeklyTopList": {
       "handler": "src.automation.routines.vsWeeklyTopList.VsWeeklyTopListRoutine",
@@ -74,7 +74,7 @@
     },
     "dailyRangList": {
       "handler": "src.automation.routines.dailyRangList.DailyRangListRoutine",
-      "interval": 60
+      "interval": null
     }
   },
   "scheduled_events": {
@@ -82,7 +82,7 @@
       "handler": "src.automation.routines.weeklyReset.WeeklyResetRoutine",
       "schedule": {
         "day": null,
-        "time": "01:50"
+        "time": null
       }
     }
   }

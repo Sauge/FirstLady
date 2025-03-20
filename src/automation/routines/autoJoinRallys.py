@@ -10,7 +10,7 @@ class AutoJoinRallysRoutine(TimeCheckRoutine):
     def _execute(self) -> bool:
         """Check and click help button if available"""
         return self.execute_with_error_handling(self._execute_internal)
-        
+
     def _execute_internal(self) -> bool:
         if find_and_tap_template(
             self.device_id,
@@ -38,27 +38,23 @@ class AutoJoinRallysRoutine(TimeCheckRoutine):
             error_msg="No rally open at this time",
             success_msg="Starting rally join sequence!"
         ):
-            
+
             if find_and_tap_template(
                 self.device_id,
                 "rally_available",
                 error_msg="Could not find any rallys",
                 success_msg="Starting joining rally!"
             ):
-                time.sleep(0.2)
+                time.sleep(0.4)
 
-                zzz_loc = find_template(self.device_id, 'rally_zzz')
-                if zzz_loc:
-                    tap_screen(self.device_id, zzz_loc[0], zzz_loc[1])
-                    
-                    if find_and_tap_template(
+                if find_and_tap_template(
                         self.device_id,
                         "rally_join",
                         error_msg="Could not rally, all squads are out",
                         success_msg="Joined rally!"
                     ):
                         time.sleep(0.2)
-                    
+
                         find_and_tap_template(
                             self.device_id,
                             "rally_back_home",
@@ -67,15 +63,14 @@ class AutoJoinRallysRoutine(TimeCheckRoutine):
                         )
                         time.sleep(round(random.uniform(0.1, 1), 2))
                         return True
-                    else:
-                        navigate_home(self.device_id)
                 else:
-                    app_logger.info('Got no team at home, not joining rally')
                     navigate_home(self.device_id)
+
             else:
                 navigate_home(self.device_id)
 
             time.sleep(round(random.uniform(0.1, 1), 2))
-            
 
-        return True 
+
+        return True
+    
