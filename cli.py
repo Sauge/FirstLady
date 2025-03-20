@@ -29,10 +29,22 @@ def get_routine_config():
         return {}
 
 parser = argparse.ArgumentParser(description='Game automation CLI')
+
+# Required positional argument
 parser.add_argument('command', choices=['auto', 'routine', 'reset'], help='Automation command to run')
+
+# Optional positional argument with choices from routine config
 parser.add_argument('routine_name', nargs='?', choices=list(get_routine_config().keys()), help='Name of routine to run')
+
+# Optional flags
 parser.add_argument('--debug', action='store_true', help='Enable debug logging')
 parser.add_argument('--no-cleanup', action='store_true', help='Skip cleanup on exit')
+
+# ✅ Add optional `device_id` argument
+parser.add_argument('--device-id', type=str, help='Specify device ID to run automation on')
+
+# Parse arguments
+args = parser.parse_args()
 
 cleanup_manager = CleanupManager()
 
@@ -78,7 +90,10 @@ def main():
     args = parser.parse_args()
     setup_logging()
     
-    device_id = get_connected_device()
+    if not args.device_id:
+        device_id = get_connected_device()
+    else:
+        device_id = args.device_id
     if not device_id:
         app_logger.error("No devices found. Please check:")
         app_logger.error("1. Device is connected via USB")
