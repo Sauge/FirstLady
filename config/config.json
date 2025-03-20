@@ -10,7 +10,7 @@
   "screenshot_quality": 100,
   "match_threshold": 0.8,
   "autoRallySquads": 3,
-  "auto_inbox": "This chat is ignored, contact SantaSauge in case of any issues",
+  "auto_inbox": "This chat is ignored, nobody reads this",
   "ui_elements": {
     "profile": {
       "x": "4%",
