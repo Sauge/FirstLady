@@ -10,7 +10,7 @@
     },
     "help": {
       "handler": "src.automation.routines.help.HelpRoutine",
-      "interval": null
+      "interval": 30
     },
     "dig": {
       "handler": "src.automation.routines.checkForDigs.CheckForDigsRoutine",
@@ -22,11 +22,11 @@
     },
     "collectTruck": {
       "handler": "src.automation.routines.collectTruck.CollectTruckRoutine",
-      "interval": null
+      "interval": 120
     },
     "secretary": {
       "handler": "src.automation.routines.secretary.SecretaryRoutine",
-      "interval": 30
+      "interval": null 
     },
     "mapExchange": {
       "handler": "src.automation.routines.mapExchange.MapExchangeRoutine",
@@ -34,7 +34,7 @@
     },
     "gifts": {
       "handler": "src.automation.routines.allianceGifts.AllianceGiftsRoutine",
-      "interval": null
+      "interval": 240
     },
     "collect_resources": {
       "handler": "src.automation.routines.collectResources.CollectResourcesRoutine",
@@ -42,11 +42,11 @@
     },
     "survivors": {
       "handler": "src.automation.routines.checkSurvivors.CheckNewSurvivorsRoutine",
-      "interval": null
+      "interval": 240
     },
     "trainOnboarding": {
       "handler": "src.automation.routines.checkTrainJoin.CheckTrainJoinRoutine",
-      "interval": null
+      "interval": 3600
     },
     "collectValentineGifts": {
       "handler": "src.automation.routines.checkValentineGift.CheckValentineGiftRoutine",
@@ -54,11 +54,11 @@
     },
     "autoInbox": {
       "handler": "src.automation.routines.autoInbox.AutoInboxRoutine",
-      "interval": 60
+      "interval": null
     },
     "autoJoinRallys": {
       "handler": "src.automation.routines.autoJoinRallys.AutoJoinRallysRoutine",
-      "interval": null
+      "interval": 10
     },
     "autoRally": {
       "handler": "src.automation.routines.autoRally.AutoRallyRoutine",
