@@ -10,7 +10,7 @@
   "screenshot_quality": 100,
   "match_threshold": 0.8,
   "autoRallySquads": 3,
-  "auto_inbox": "This chat is ignored, nobody reads this",
+  "auto_inbox": "You have reached the VP office, unfortunately nobody is here at this moment.",
   "ui_elements": {
     "profile": {
       "x": "4%",
