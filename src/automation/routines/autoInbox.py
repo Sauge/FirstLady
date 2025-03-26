@@ -17,6 +17,14 @@ class AutoInboxRoutine(TimeCheckRoutine):
 
         if find_and_tap_template(
             self.device_id,
+            "map",
+            error_msg="Already on map screen",
+            success_msg="Opened map screen"
+        ):
+            time.sleep(1) 
+
+        if find_and_tap_template(
+            self.device_id,
             "message_notifier",
             error_msg="No inbox message at this time",
             success_msg="Found inbox icon, proceeding to inbox"
